@@ -1,57 +1,112 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BaytAI</title>
 
 <style>
 
 body{
-font-family:Arial;
-background:#0f172a;
+font-family: system-ui;
+background: linear-gradient(135deg,#0f172a,#020617);
 color:white;
+margin:0;
 padding:40px;
 text-align:center
 }
 
-.box{
+.container{
+max-width:1000px;
+margin:auto
+}
+
+.header{
+margin-bottom:30px
+}
+
+h1{
+font-size:42px;
+margin-bottom:10px
+}
+
+.subtitle{
+color:#cbd5e1;
+font-size:18px
+}
+
+.card{
 background:#111827;
 border:1px solid #334155;
 border-radius:14px;
-padding:20px;
-margin:auto;
-max-width:900px;
-margin-bottom:20px
+padding:25px;
+margin-top:20px
 }
 
-textarea,select,button{
-width:80%;
+textarea{
+width:90%;
+max-width:700px;
+height:120px;
+border-radius:10px;
+border:none;
 padding:10px;
+font-size:16px
+}
+
+select{
 margin-top:10px;
+padding:10px;
 border-radius:8px;
 border:none
 }
 
 button{
+margin-top:15px;
+padding:12px 24px;
+border:none;
+border-radius:10px;
 background:#22d3ee;
 color:black;
 font-weight:bold;
+font-size:16px;
 cursor:pointer
 }
 
 .result{
 text-align:right;
+line-height:1.9;
 background:#020617;
-padding:15px;
+padding:18px;
 border-radius:10px;
-line-height:1.8
+margin-top:15px
+}
+
+.section-title{
+font-size:22px;
+margin-bottom:10px
 }
 
 iframe{
-margin-top:20px;
 width:100%;
-height:350px;
-border-radius:10px
+height:360px;
+border-radius:10px;
+margin-top:20px
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
+margin-top:20px
+}
+
+.feature{
+background:#020617;
+padding:15px;
+border-radius:10px;
+border:1px solid #334155
 }
 
 </style>
@@ -60,18 +115,26 @@ border-radius:10px
 
 <body>
 
-<div class="box">
+<div class="container">
+
+<div class="header">
+
 <h1>BaytAI</h1>
-<p>منصة ذكية لتحويل الشعر العربي إلى فيديو أو بودكاست بالذكاء الاصطناعي</p>
+
+<div class="subtitle">
+منصة ذكية لتحويل الشعر العربي إلى محتوى فيديو وبودكاست باستخدام الذكاء الاصطناعي
 </div>
 
-<div class="box">
+</div>
 
-<h2>أدخل الأبيات الشعرية</h2>
+
+<div class="card">
+
+<div class="section-title">أدخل الأبيات الشعرية</div>
 
 <form method="post" action="/generate">
 
-<textarea name="poem" rows="6">
+<textarea name="poem">
 الخيل والليل والبيداء تعرفني
 والسيف والرمح والقرطاس والقلم
 </textarea>
@@ -86,7 +149,9 @@ border-radius:10px
 
 <br>
 
-<button type="submit">توليد المحتوى</button>
+<button type="submit">
+توليد المحتوى
+</button>
 
 </form>
 
@@ -95,70 +160,82 @@ border-radius:10px
 
 {% if result %}
 
-<div class="box">
+<div class="card">
 
-<h2>التحليل الذكي</h2>
+<div class="section-title">التحليل الذكي للنص</div>
 
 <div class="result">
 
 <strong>الثيمة:</strong> {{ result.theme }} <br>
-<strong>النبرة:</strong> {{ result.mood }} <br>
+<strong>النبرة:</strong> {{ result.mood }}
 
-<br>
+<br><br>
 
 <strong>المشهد الأول:</strong> {{ result.scene1 }} <br>
 <strong>المشهد الثاني:</strong> {{ result.scene2 }} <br>
-<strong>المشهد الثالث:</strong> {{ result.scene3 }} <br>
+<strong>المشهد الثالث:</strong> {{ result.scene3 }}
 
-<br>
+<br><br>
 
 <strong>سيناريو الفيديو:</strong>
+
 <p>{{ result.video_script }}</p>
 
-<strong>وصف البودكاست:</strong>
+<strong>سيناريو البودكاست:</strong>
+
 <p>{{ result.podcast_script }}</p>
 
 </div>
 
 </div>
 
-<div class="box">
 
-<h2>فيديو توضيحي للشكل النهائي</h2>
+<div class="card">
+
+<div class="section-title">معاينة الفيديو النهائي المتوقع</div>
 
 <iframe src="{{ result.video_demo }}" allowfullscreen></iframe>
 
 </div>
 
-<div class="box">
 
-<h2>المعمارية المستقبلية للمنصة</h2>
+<div class="card">
 
-<div class="result">
+<div class="section-title">كيف تعمل المنصة؟</div>
 
-1️⃣ تحليل النص الشعري باستخدام نماذج لغوية.
+<div class="features">
 
-<br><br>
+<div class="feature">
+تحليل القصيدة باستخدام نماذج لغوية
+</div>
 
-2️⃣ توليد مشاهد بصرية بالذكاء الاصطناعي.
+<div class="feature">
+استخراج الثيمة والمشاهد
+</div>
 
-<br><br>
+<div class="feature">
+توليد سيناريو الفيديو
+</div>
 
-3️⃣ توليد صوت عربي احترافي لإلقاء القصيدة.
+<div class="feature">
+تحويل النص إلى صوت
+</div>
 
-<br><br>
+<div class="feature">
+توليد مشاهد بصرية
+</div>
 
-4️⃣ دمج الصوت والمشاهد لإنتاج فيديو تلقائي.
-
-<br><br>
-
-5️⃣ تقديم الفيديو النهائي خلال ثوانٍ.
+<div class="feature">
+إنتاج الفيديو النهائي
+</div>
 
 </div>
 
 </div>
 
 {% endif %}
+
+</div>
 
 </body>
 </html>
