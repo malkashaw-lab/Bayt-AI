@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BaytAI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:'Cairo',sans-serif;background:#020617;color:#fff;margin:0}
+    .wrap{max-width:1200px;margin:auto;padding:24px}
+    .hero,.card{background:#0f172a;border:1px solid #1e293b;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+    .hero{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;padding:28px}
+    .pill{display:inline-block;background:rgba(34,211,238,.1);color:#67e8f9;padding:6px 14px;border:1px solid rgba(34,211,238,.25);border-radius:999px;font-size:14px}
+    h1{font-size:48px;line-height:1.25;margin:16px 0 10px;font-weight:800}
+    p{color:#cbd5e1;line-height:1.9}
+    .gold{color:#fcd34d}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+    .stat,.mini{background:#020617;border:1px solid #1e293b;border-radius:18px;padding:16px;text-align:center}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;margin-top:24px}
+    .card{padding:24px}
+    textarea,select,input{width:100%;background:#020617;color:#fff;border:1px solid #334155;border-radius:16px;padding:14px;font-family:inherit}
+    textarea{min-height:170px;font-size:18px;line-height:1.8}
+    label{display:block;margin:0 0 8px;color:#cbd5e1;font-size:14px}
+    .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    button{background:#06b6d4;color:#082f49;border:none;border-radius:16px;padding:14px 22px;font-weight:800;cursor:pointer}
+    .btn2{background:transparent;border:1px solid #334155;color:#fff}
+    .result{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .video{aspect-ratio:16/9;background:linear-gradient(135deg,#1e293b,#083344,#0f172a);border-radius:24px;border:1px solid #334155;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px}
+    ul{color:#cbd5e1;line-height:2}
+    .footer{color:#94a3b8;text-align:center;padding:30px 0}
+    @media(max-width:900px){.hero,.grid,.result,.stats,.row3{grid-template-columns:1fr}.wrap{padding:14px}h1{font-size:34px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="pill">BaytAI — منصة الشعر العربي الذكية</span>
+        <h1>حوّل القصيدة العربية إلى <span class="gold">فيديو أو بودكاست</span></h1>
+        <p>هذه نسخة تشغيلية أولية قابلة للتطوير الفوري. تقوم بتحليل القصيدة، اقتراح الثيمة والسياق التاريخي، وتكوين مخرج مرئي/صوتي جاهز للعرض، ويمكن ربطها لاحقًا بخدمات OpenAI وElevenLabs وRunway لإنتاج فعلي.</p>
+        <div class="stats">
+          <div class="stat"><div class="gold">AI</div><div>تحليل شعري</div></div>
+          <div class="stat"><div class="gold">TTS</div><div>إلقاء عربي</div></div>
+          <div class="stat"><div class="gold">Video</div><div>إخراج مرئي</div></div>
+          <div class="stat"><div class="gold">History</div><div>سياق موثوق</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="video">
+          <div style="font-size:46px">▶</div>
+          <h3 style="margin:12px 0 8px">معاينة المشروع</h3>
+          <p style="margin:0">المتنبي • العصر العباسي • فيديو قصير</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>الاستوديو التشغيلي</h2>
+        <form action="/generate" method="post">
+          <label>أدخل القصيدة أو الأبيات</label>
+          <textarea name="poem">الخيل والليل والبيداء تعرفني
+والسيف والرمح والقرطاس والقلم</textarea>
+          <div class="row3" style="margin-top:14px">
+            <div>
+              <label>نوع المخرج</label>
+              <select name="output_type">
+                <option>فيديو قصير</option>
+                <option>بودكاست</option>
+                <option>فيديو تعليمي</option>
+              </select>
+            </div>
+            <div>
+              <label>السياق التاريخي</label>
+              <select name="era">
+                <option>تلقائي</option>
+                <option>العصر الجاهلي</option>
+                <option>العصر العباسي</option>
+                <option>العصر الأندلسي</option>
+              </select>
+            </div>
+            <div>
+              <label>نوع الإلقاء</label>
+              <select name="voice">
+                <option>ملحمي</option>
+                <option>هادئ</option>
+                <option>وثائقي</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+            <button type="submit">توليد المحتوى</button>
+            <button type="reset" class="btn2">إعادة ضبط</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>كيف يعمل النظام</h2>
+        <ul>
+          <li>تحليل القصيدة واستخراج الصور البلاغية والثيمة.</li>
+          <li>استنتاج السياق التاريخي المرتبط بالشاعر أو العصر.</li>
+          <li>توليد وصف بصري وصوتي للفيديو أو البودكاست.</li>
+          <li>إعداد النتيجة للربط مع واجهات الذكاء الاصطناعي الحقيقية.</li>
+        </ul>
+      </div>
+    </div>
+
+    {% if result %}
+    <div class="result">
+      <div class="card">
+        <h2>النموذج الأولي الناتج</h2>
+        <div class="video">
+          <div style="font-size:54px">▶</div>
+          <h3>{{ result.poem_title }}</h3>
+          <p>{{ result.output_type }} • {{ result.detected_era }} • أداء {{ result.voice }}</p>
+        </div>
+        <div class="row3" style="margin-top:14px;grid-template-columns:1fr 1fr 1fr">
+          <div class="mini"><div style="color:#94a3b8">الثيمة</div><div class="gold">{{ result.theme }}</div></div>
+          <div class="mini"><div style="color:#94a3b8">السياق</div><div class="gold">{{ result.detected_era }}</div></div>
+          <div class="mini"><div style="color:#94a3b8">الصوت</div><div class="gold">{{ result.voice }}</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>الوصف الذكي</h2>
+        <p><strong>الملخص:</strong> {{ result.summary }}</p>
+        <p><strong>المشاهد المقترحة:</strong></p>
+        <ul>
+          {% for scene in result.scenes %}<li>{{ scene }}</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="footer">BaytAI Demo — نسخة قابلة للتوسعة والربط بواجهات الذكاء الاصطناعي الفعلية</div>
+  </div>
+</body>
+</html>
