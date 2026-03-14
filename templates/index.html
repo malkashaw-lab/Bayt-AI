@@ -1,114 +1,164 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BaytAI</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      margin: 0;
-      padding: 40px;
-      text-align: center;
-    }
-    .box {
-      max-width: 950px;
-      margin: auto;
-      background: #111827;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 20px;
-    }
-    textarea, select, button {
-      width: 90%;
-      max-width: 700px;
-      padding: 12px;
-      margin-top: 12px;
-      border-radius: 10px;
-      border: 1px solid #475569;
-      background: #020617;
-      color: white;
-      font-size: 16px;
-    }
-    button {
-      background: #22d3ee;
-      color: #0f172a;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    h1, h2 {
-      color: #fbbf24;
-    }
-    .result {
-      text-align: right;
-      line-height: 1.9;
-      background: #020617;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 18px;
-      margin-top: 20px;
-    }
-    video {
-      width: 100%;
-      max-width: 800px;
-      border-radius: 12px;
-      margin-top: 20px;
-      border: 1px solid #334155;
-      background: black;
-    }
-    .note {
-      color: #cbd5e1;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>BaytAI</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+padding:40px;
+text-align:center
+}
+
+.box{
+background:#111827;
+border:1px solid #334155;
+border-radius:14px;
+padding:20px;
+margin:auto;
+max-width:900px;
+margin-bottom:20px
+}
+
+textarea,select,button{
+width:80%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+border:none
+}
+
+button{
+background:#22d3ee;
+color:black;
+font-weight:bold;
+cursor:pointer
+}
+
+.result{
+text-align:right;
+background:#020617;
+padding:15px;
+border-radius:10px;
+line-height:1.8
+}
+
+iframe{
+margin-top:20px;
+width:100%;
+height:350px;
+border-radius:10px
+}
+
+</style>
+
 </head>
+
 <body>
 
-  <div class="box">
-    <h1>BaytAI</h1>
-    <p>منصة توليد فيديو شعري عربي بالذكاء الاصطناعي</p>
-  </div>
+<div class="box">
+<h1>BaytAI</h1>
+<p>منصة ذكية لتحويل الشعر العربي إلى فيديو أو بودكاست بالذكاء الاصطناعي</p>
+</div>
 
-  <div class="box">
-    <h2>أدخل الأبيات الشعرية</h2>
-    <form method="post" action="/generate">
-      <textarea name="poem" rows="6">الخيل والليل والبيداء تعرفني
-والسيف والرمح والقرطاس والقلم</textarea>
-      <br>
-      <select name="output_type">
-        <option value="فيديو قصير">فيديو قصير</option>
-        <option value="بودكاست">بودكاست</option>
-        <option value="فيديو تعليمي">فيديو تعليمي</option>
-      </select>
-      <br>
-      <button type="submit">توليد الفيديو</button>
-    </form>
-    <div class="note">قد يستغرق توليد الفيديو بعض الوقت حسب طول النص.</div>
-  </div>
+<div class="box">
 
-  {% if result %}
-  <div class="box">
-    <h2>النتيجة</h2>
-    <div class="result">
-      <strong>الثيمة:</strong> {{ result.theme }}<br>
-      <strong>نوع المخرج:</strong> {{ result.output_type }}<br>
-      {% if result.error %}
-      <strong>الخطأ:</strong> {{ result.error }}
-      {% endif %}
-    </div>
+<h2>أدخل الأبيات الشعرية</h2>
 
-    {% if result.video_url %}
-    <video controls>
-      <source src="{{ result.video_url }}" type="video/mp4">
-      المتصفح لا يدعم تشغيل الفيديو.
-    </video>
-    {% endif %}
-  </div>
-  {% endif %}
+<form method="post" action="/generate">
+
+<textarea name="poem" rows="6">
+الخيل والليل والبيداء تعرفني
+والسيف والرمح والقرطاس والقلم
+</textarea>
+
+<br>
+
+<select name="output_type">
+<option value="فيديو قصير">فيديو قصير</option>
+<option value="بودكاست">بودكاست</option>
+<option value="فيديو تعليمي">فيديو تعليمي</option>
+</select>
+
+<br>
+
+<button type="submit">توليد المحتوى</button>
+
+</form>
+
+</div>
+
+
+{% if result %}
+
+<div class="box">
+
+<h2>التحليل الذكي</h2>
+
+<div class="result">
+
+<strong>الثيمة:</strong> {{ result.theme }} <br>
+<strong>النبرة:</strong> {{ result.mood }} <br>
+
+<br>
+
+<strong>المشهد الأول:</strong> {{ result.scene1 }} <br>
+<strong>المشهد الثاني:</strong> {{ result.scene2 }} <br>
+<strong>المشهد الثالث:</strong> {{ result.scene3 }} <br>
+
+<br>
+
+<strong>سيناريو الفيديو:</strong>
+<p>{{ result.video_script }}</p>
+
+<strong>وصف البودكاست:</strong>
+<p>{{ result.podcast_script }}</p>
+
+</div>
+
+</div>
+
+<div class="box">
+
+<h2>فيديو توضيحي للشكل النهائي</h2>
+
+<iframe src="{{ result.video_demo }}" allowfullscreen></iframe>
+
+</div>
+
+<div class="box">
+
+<h2>المعمارية المستقبلية للمنصة</h2>
+
+<div class="result">
+
+1️⃣ تحليل النص الشعري باستخدام نماذج لغوية.
+
+<br><br>
+
+2️⃣ توليد مشاهد بصرية بالذكاء الاصطناعي.
+
+<br><br>
+
+3️⃣ توليد صوت عربي احترافي لإلقاء القصيدة.
+
+<br><br>
+
+4️⃣ دمج الصوت والمشاهد لإنتاج فيديو تلقائي.
+
+<br><br>
+
+5️⃣ تقديم الفيديو النهائي خلال ثوانٍ.
+
+</div>
+
+</div>
+
+{% endif %}
 
 </body>
 </html>
