@@ -1,35 +1,108 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>BaytAI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaytAI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .box {
+      max-width: 950px;
+      margin: auto;
+      background: #111827;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    textarea, select, button {
+      width: 90%;
+      max-width: 700px;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 10px;
+      border: 1px solid #475569;
+      background: #020617;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      background: #22d3ee;
+      color: #0f172a;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    h1, h2 {
+      color: #fbbf24;
+    }
+    .result {
+      text-align: right;
+      line-height: 1.9;
+      background: #020617;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+    video {
+      width: 100%;
+      max-width: 800px;
+      border-radius: 12px;
+      margin-top: 20px;
+      border: 1px solid #334155;
+      background: black;
+    }
+  </style>
 </head>
+<body>
 
-<body style="font-family:Arial;background:#0f172a;color:white;text-align:center;padding:40px">
+  <div class="box">
+    <h1>BaytAI</h1>
+    <p>منصة توليد فيديو شعري عربي بالذكاء الاصطناعي</p>
+  </div>
 
-<h1>BaytAI</h1>
+  <div class="box">
+    <h2>أدخل الأبيات الشعرية</h2>
+    <form method="post" action="/generate">
+      <textarea name="poem" rows="6">الخيل والليل والبيداء تعرفني
+والسيف والرمح والقرطاس والقلم</textarea>
+      <br>
+      <select name="output_type">
+        <option value="فيديو قصير">فيديو قصير</option>
+        <option value="بودكاست">بودكاست</option>
+        <option value="فيديو تعليمي">فيديو تعليمي</option>
+      </select>
+      <br>
+      <button type="submit">توليد الفيديو</button>
+    </form>
+  </div>
 
-<p>منصة تحويل الشعر العربي إلى فيديو أو بودكاست بالذكاء الاصطناعي</p>
+  {% if result %}
+  <div class="box">
+    <h2>النتيجة</h2>
+    <div class="result">
+      <strong>الثيمة:</strong> {{ result.theme }}<br>
+      <strong>نوع المخرج:</strong> {{ result.output_type }}<br>
+      {% if result.error %}
+      <strong>الخطأ:</strong> {{ result.error }}
+      {% endif %}
+    </div>
 
-<form method="post" action="/generate">
-
-<textarea name="poem" rows="6" style="width:80%">
-الخيل والليل والبيداء تعرفني
-والسيف والرمح والقرطاس والقلم
-</textarea>
-
-<br><br>
-
-<select name="output_type">
-<option>فيديو قصير</option>
-<option>بودكاست</option>
-</select>
-
-<br><br>
-
-<button type="submit">توليد المحتوى</button>
-
-</form>
+    {% if result.video_url %}
+    <video controls>
+      <source src="{{ result.video_url }}" type="video/mp4">
+      المتصفح لا يدعم تشغيل الفيديو.
+    </video>
+    {% endif %}
+  </div>
+  {% endif %}
 
 </body>
 </html>
